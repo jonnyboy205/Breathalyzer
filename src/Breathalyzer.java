@@ -8,17 +8,23 @@ public class Breathalyzer {
 	
 	private HashSet<String> dictHash;
 	private String theWordListFilename;
+	private String theDrunkSentence;
 	private static final boolean DEBUG = true;
 	
-	public Breathalyzer(String theWordListFilename) throws FileNotFoundException{
+	public Breathalyzer(String theWordListFilename, String theDrunkSentence) throws FileNotFoundException{
 		this.theWordListFilename = theWordListFilename;
+		this.theDrunkSentence = theDrunkSentence;
 		File theWordList = new File(theWordListFilename);
 		try {
 			Scanner dictionary = new Scanner(theWordList);
 			createDictHashSet(dictionary);
 			
-			if (DEBUG)
-				printDictHash();
+			BFS myBFS = new BFS(theDrunkSentence);
+			
+			if (DEBUG){
+				//printDictHash();
+				myBFS.printSuccessors();
+			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
