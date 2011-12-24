@@ -10,7 +10,7 @@ public class Breathalyzer {
 	private String theWordListFilename;
 	private static final boolean DEBUG = true;
 	
-	public Breathalyzer(String theWordListFilename) throws Exception{
+	public Breathalyzer(String theWordListFilename) throws FileNotFoundException{
 		this.theWordListFilename = theWordListFilename;
 		File theWordList = new File(theWordListFilename);
 		try {
@@ -22,7 +22,7 @@ public class Breathalyzer {
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -33,6 +33,15 @@ public class Breathalyzer {
 		}
 	}
 	
+	/**
+	 * Main run method. Calculates drunk score of sentence.
+	 */
+	public void run(){
+		//I'm thinking a breadth-first search to check all possible variations of words with 1 change, 2 changes, etc.
+		//TODO
+		
+	}
+	
 	private void printDictHash(){
 		System.out.println("Dictionary according to " + theWordListFilename + ":");
 		System.out.println("----------------------------------------------------");
@@ -41,7 +50,5 @@ public class Breathalyzer {
 		while (dictHashIterator.hasNext()){
 			System.out.println(dictHashIterator.next());
 		}
-		
-		
 	}
 }
