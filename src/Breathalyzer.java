@@ -19,11 +19,11 @@ public class Breathalyzer {
 			Scanner dictionary = new Scanner(theWordList);
 			createDictHashSet(dictionary);
 			
-			BFS myBFS = new BFS(theDrunkSentence);
+			//BFS myBFS = new BFS(theDrunkSentence);
 			
 			if (DEBUG){
-				//printDictHash();
-				myBFS.printSuccessors();
+				printDictHash();
+				//myBFS.printSuccessors();
 			}
 			
 		} catch (FileNotFoundException e) {
