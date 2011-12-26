@@ -19,11 +19,8 @@ public class Breathalyzer {
 			Scanner dictionary = new Scanner(theWordList);
 			createDictHashSet(dictionary);
 			
-			//BFS myBFS = new BFS(theDrunkSentence);
-			
 			if (DEBUG){
 				printDictHash();
-				//myBFS.printSuccessors();
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -45,7 +42,11 @@ public class Breathalyzer {
 	public void run(){
 		//I'm thinking a breadth-first search to check all possible variations of words with 1 change, 2 changes, etc.
 		//TODO
+		BFS myBFS = new BFS(theDrunkSentence);
 		
+		if (DEBUG){
+			myBFS.printSuccessors();
+		}
 	}
 	
 	private void printDictHash(){

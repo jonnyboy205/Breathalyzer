@@ -1,10 +1,10 @@
-import java.util.AbstractQueue;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class BFS {
 	
-	Node root;
-	AbstractQueue<Node> successors;
+	private LinkedBlockingDeque<Node> successors;
 
 	public BFS(String theDrunkSentence){
 		//first parse the sentence for the n words in it
@@ -12,34 +12,61 @@ public class BFS {
 		//each will have children with the states coming from them
 		//with the new possible words doing all of those variations.
 		
-		//successors = new AbstractQueue<Node>();
+		successors = new LinkedBlockingDeque<Node>();
 		
-		parseSentence(theDrunkSentence);
-		expandRoot();
-	}
-	
-	private void parseSentence(String sentence){
-		//TODO
-		//let's go for just the first word for now
-		StringTokenizer st = new StringTokenizer(sentence, " ");
-		String firstWord = st.nextToken();
-		
-		root = new Node(firstWord, null);
-	}
-	
-	private void expandRoot(){
-		char letter = 'a';
-		while (letter <= 'z'){
-			successors.add(new Node(letter + root.getWord(), root));
-			letter++;
+		ArrayList<Node> words = parseSentence(theDrunkSentence);
+		for (Node currentWordNode : words){
+			generateSuccessors(currentWordNode);
 		}
 	}
+	
+	private ArrayList<Node> parseSentence(String sentence){
+		ArrayList<Node> ret = new ArrayList<Node>();
+		
+		StringTokenizer st = new StringTokenizer(sentence, " ");
+		while (st.hasMoreTokens()){
+			String tempWord = st.nextToken();
+			ret.add(new Node(tempWord, null));
+		}
+		return ret;
+	}
+	
+	private void generateSuccessors(Node currentNode){
+		char letter = 'a';
+		for (int i=-1; i<currentNode.getWord().length(); i++){
+			if (i==-1){
+				letter = 'a';
+				while (letter <= 'z'){
+					successors.add(new Node(letter + currentNode.getWord().substring(i+1, currentNode.getWord().length()), currentNode));
+					letter++;
+				}
+			}
+			else if (i>=0 || i<(currentNode.getWord().length()-1)){
+				letter = 'a';
+				while (letter <= 'z'){
+					successors.add(new Node(currentNode.getWord().substring(0,i+1) + letter + currentNode.getWord().substring(i+1, currentNode.getWord().length()), currentNode));
+					letter++;
+				}
+			}
+			else{
+				letter = 'a';
+				while (letter <= 'z'){
+					successors.add(new Node(currentNode.getWord().substring(0,i+1) + letter, currentNode));
+					letter++;
+				}
+			}
+		}
+	}
+	
+//	public int getScore(){
+//		
+//	}
 	
 	public void printSuccessors(){
 		System.out.println("Successors:");
 		System.out.println("------------");
 		while (!successors.isEmpty()){
-			System.out.println(successors.poll());
+			System.out.println(successors.poll().getWord());
 		}
 	}
 }

@@ -9,8 +9,9 @@ public class BreathalyzerTest {
 	 */
 	public static void main(String[] args) throws Exception {
 		try {
-			/*Breathalyzer myBreathalyzer = */new Breathalyzer("./var/tmp/twl06.txt", 
+			Breathalyzer myBreathalyzer = new Breathalyzer("./var/tmp/twl06.txt", 
 					"tihs sententcnes iss nout varrry goud");
+			myBreathalyzer.run();
 		} catch (FileNotFoundException e) {
 			System.out.println("File can't be found.");
 		} catch (Exception e){
