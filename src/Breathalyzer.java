@@ -42,10 +42,11 @@ public class Breathalyzer {
 	public void run(){
 		//I'm thinking a breadth-first search to check all possible variations of words with 1 change, 2 changes, etc.
 		//TODO
-		BFS myBFS = new BFS(theDrunkSentence);
+		BFS myBFS = new BFS(theDrunkSentence, dictHash);
+		myBFS.run();
 		
 		if (DEBUG){
-			myBFS.printSuccessors();
+//			myBFS.printSuccessors();
 		}
 	}
 	

@@ -1,23 +1,61 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class BFS {
 	
-	private LinkedBlockingDeque<Node> successors;
+	private int currentLevel;
+	private HashSet<String> dictionary;
+	private ArrayList<String> initialWords;
+	private HashMap<String, ArrayList<Node>> sentenceTree;
 
-	public BFS(String theDrunkSentence){
-		//first parse the sentence for the n words in it
-		//each of those words will be the root of a tree
-		//each will have children with the states coming from them
-		//with the new possible words doing all of those variations.
+	public BFS(String theDrunkSentence, HashSet<String> dictHash){
+		dictionary = dictHash;
 		
-		successors = new LinkedBlockingDeque<Node>();
+		sentenceTree = new HashMap<String, ArrayList<Node>>();
+		initialWords = new ArrayList<String>();
 		
 		ArrayList<Node> words = parseSentence(theDrunkSentence);
+			
+		String currentWord = "";
 		for (Node currentWordNode : words){
-			generateSuccessors(currentWordNode);
+			currentWord = currentWordNode.getWord();
+			initialWords.add(currentWord);
+			sentenceTree.put(currentWord, generateSuccessors(currentWordNode));
 		}
+	}
+
+	public int run(){
+		int score = checkLevel();
+		while (score !=- 1){
+			score = checkLevel();
+		}
+		return score;
+			
+	}
+	
+	private int checkLevel() {
+		int score = 0;
+		
+		ArrayList<String> wordsToRemove = new ArrayList<String>();
+		for (String iWord: initialWords){
+			if (someSuccessorMatchesDict(iWord)){
+				wordsToRemove.add(iWord);
+				System.out.println("Some word matches.");
+			}
+		}
+		for (String rWord: wordsToRemove){
+			initialWords.remove(rWord);
+		}
+		
+		if (initialWords.isEmpty())
+			score = 0;
+		else
+			score = -1;
+		
+		return score;
 	}
 	
 	private ArrayList<Node> parseSentence(String sentence){
@@ -31,7 +69,9 @@ public class BFS {
 		return ret;
 	}
 	
-	private void generateSuccessors(Node currentNode){
+	private ArrayList<Node> generateSuccessors(Node currentNode){
+		ArrayList<Node> successors = new ArrayList<Node>();
+		
 		char letter = 'a';
 		for (int i=-1; i<currentNode.getWord().length(); i++){
 			if (i==-1){
@@ -56,17 +96,21 @@ public class BFS {
 				}
 			}
 		}
+		
+		return successors;
 	}
 	
-//	public int getScore(){
-//		
-//	}
-	
-	public void printSuccessors(){
-		System.out.println("Successors:");
-		System.out.println("------------");
-		while (!successors.isEmpty()){
-			System.out.println(successors.poll().getWord());
+	private boolean someSuccessorMatchesDict(String word){
+		boolean b = false;
+		
+		for (Node n: sentenceTree.get(word)){
+			if (dictionary.contains(n.getWord())){
+				initialWords.remove(word);
+				b = true;
+			}
 		}
+		
+		return b;
 	}
+	
 }
