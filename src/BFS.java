@@ -26,37 +26,6 @@ public class BFS {
 			sentenceTree.put(currentWord, generateSuccessors(currentWordNode));
 		}
 	}
-
-	public int run(){
-		int score = checkLevel();
-		while (score !=- 1){
-			score = checkLevel();
-		}
-		return score;
-			
-	}
-	
-	private int checkLevel() {
-		int score = 0;
-		
-		ArrayList<String> wordsToRemove = new ArrayList<String>();
-		for (String iWord: initialWords){
-			if (someSuccessorMatchesDict(iWord)){
-				wordsToRemove.add(iWord);
-				System.out.println("Some word matches.");
-			}
-		}
-		for (String rWord: wordsToRemove){
-			initialWords.remove(rWord);
-		}
-		
-		if (initialWords.isEmpty())
-			score = 0;
-		else
-			score = -1;
-		
-		return score;
-	}
 	
 	private ArrayList<Node> parseSentence(String sentence){
 		ArrayList<Node> ret = new ArrayList<Node>();
@@ -100,17 +69,59 @@ public class BFS {
 		return successors;
 	}
 	
-	private boolean someSuccessorMatchesDict(String word){
-		boolean b = false;
-		
-		for (Node n: sentenceTree.get(word)){
-			if (dictionary.contains(n.getWord())){
-				initialWords.remove(word);
-				b = true;
-			}
-		}
-		
-		return b;
-	}
+//	public int run() {
+//		int score = checkLevel();
+//		while (score != -1) {
+//			// check next successors
+//			getNewSuccessors();
+//			score = checkLevel();
+//		}
+//		return score;
+//
+//	}
+
+//	private void getNewSuccessors(){
+//		//iterate through the hash table
+//		//get the arraylists
+//		//generate successors for each of those array lists
+//		//combine those successor array lists
+//		//look through each of those and hash them
+//	}
+
+//	private int checkLevel() {
+//		int score = 0;
+//		
+//		ArrayList<String> wordsToRemove = new ArrayList<String>();
+//		for (String iWord: initialWords){
+//			if (someSuccessorMatchesDict(iWord)){
+//				wordsToRemove.add(iWord);
+//				System.out.println("Some word matches.");
+//			}
+//		}
+//		for (String rWord: wordsToRemove){
+//			initialWords.remove(rWord);
+//			sentenceTree.remove(rWord);
+//		}
+//		
+//		if (initialWords.isEmpty())
+//			score = 0;
+//		else
+//			score = -1;
+//		
+//		return score;
+//	}
+	
+//	private boolean someSuccessorMatchesDict(String word){
+//		boolean b = false;
+//		
+//		for (Node n: sentenceTree.get(word)){
+//			if (dictionary.contains(n.getWord())){
+//				initialWords.remove(word);
+//				b = true;
+//			}
+//		}
+//		
+//		return b;
+//	}
 	
 }
