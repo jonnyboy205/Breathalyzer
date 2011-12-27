@@ -43,6 +43,8 @@ public class BFS {
 		
 		String copyWord = currentNode.getWord();
 	
+		//TODO extract those methods
+		
 		//remove any single letter
 		char[] letters = copyWord.toCharArray();
 		String temp = copyWord;
