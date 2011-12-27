@@ -11,7 +11,7 @@ public class BreathalyzerTest {
 		try {
 			Breathalyzer myBreathalyzer = new Breathalyzer("./var/tmp/twl06.txt", 
 					"tihs sententcnes iss nout varrry goud");
-//			myBreathalyzer.run();
+			myBreathalyzer.run();
 		} catch (FileNotFoundException e) {
 			System.out.println("File can't be found.");
 		} catch (Exception e){
