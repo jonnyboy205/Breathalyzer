@@ -6,7 +6,7 @@ public class BFS {
 	
 	private HashSet<String> dictionary;
 	private ArrayList<Node> initialWords;
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 
 	public BFS(String theDrunkSentence, HashSet<String> dictHash){
 		dictionary = dictHash;
@@ -128,27 +128,29 @@ public class BFS {
 	 * @return score
 	 */
 	private int recursiveCalcScore(int a, ArrayList<Node> successors){
-		if (a==0)
-			return 0;
-		
 		for (Node n: successors){
 			if (dictionary.contains(n.getWord())){
 				if (DEBUG)
-					System.out.println(n.getWord());
-				
+					System.out.println("Level: " + a + ", word: " + n.getWord());
 				return a;
 			}
 		}
 		
-		return recursiveCalcScore(a++, generateSuccessors(successors));
+		return recursiveCalcScore(++a, generateSuccessors(successors));
 		
+	}
+	
+	private int recursiveCalcScore(int a, Node n){
+		ArrayList<Node> temp = new ArrayList<Node>();
+		temp.add(n);
+		return recursiveCalcScore(a, temp);
 	}
 
 	public int run(){
 		int score = 0;
 		
 		for (Node iWordNode: initialWords){
-			score += recursiveCalcScore(1, generateSuccessors(iWordNode));
+			score += recursiveCalcScore(0, iWordNode);
 		}
 		
 		return score;

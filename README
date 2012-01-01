@@ -1,2 +1,5 @@
 I don't actually need to have nodes. I can just have ArrayList of Strings. I did nodes 
 because I originally thought of BFS.
+
+Scratch that, not done, still need to take in the sentence as an argument from command line right?
+No, you take in the sentence from an input file.
