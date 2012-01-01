@@ -11,6 +11,12 @@ public class Breathalyzer {
 	private String theDrunkSentence;
 	private static final boolean DEBUG = false;
 	
+	/**
+	 * Constructor to take in file name for wordList, and the drunk sentence. Sets up the hash dictionary.
+	 * @param theWordListFilename
+	 * @param theDrunkSentence
+	 * @throws FileNotFoundException
+	 */
 	public Breathalyzer(String theWordListFilename, String theDrunkSentence) throws FileNotFoundException{
 		this.theWordListFilename = theWordListFilename;
 		this.theDrunkSentence = theDrunkSentence;
@@ -40,12 +46,8 @@ public class Breathalyzer {
 	 * Main run method. Calculates drunk score of sentence.
 	 */
 	public int run(){
-		//I'm thinking a breadth-first search to check all possible variations of words with 1 change, 2 changes, etc.
-		//TODO
-		
 		BFS myBFS = new BFS(theDrunkSentence, dictHash);
 		return myBFS.run();
-		
 	}
 	
 	private void printDictHash(){

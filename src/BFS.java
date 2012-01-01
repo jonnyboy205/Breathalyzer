@@ -1,33 +1,17 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.StringTokenizer;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class BFS {
 	
-//	private int currentLevel;
 	private HashSet<String> dictionary;
-//	private ArrayList<String> initialWords;
 	private ArrayList<Node> initialWords;
-//	private HashMap<String, ArrayList<Node>> sentenceTree;
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 
 	public BFS(String theDrunkSentence, HashSet<String> dictHash){
 		dictionary = dictHash;
 		
 		initialWords = parseSentence(theDrunkSentence);
-		
-//		ArrayList<Node> words = parseSentence(theDrunkSentence);
-//			
-//		sentenceTree = new HashMap<String, ArrayList<Node>>();		
-//		initialWords = new ArrayList<String>();
-//		String currentWord = "";
-//		for (Node currentWordNode : words){
-//			currentWord = currentWordNode.getWord();
-//			initialWords.add(currentWord);
-//			sentenceTree.put(currentWord, generateSuccessors(currentWordNode));
-//		}
 	}
 	
 	private ArrayList<Node> parseSentence(String sentence){
@@ -138,7 +122,6 @@ public class BFS {
 		return ret;
 	}
 
-	
 	/**
 	 * 
 	 * @param a, depth level in breadth-first search tree
@@ -170,60 +153,5 @@ public class BFS {
 		
 		return score;
 	}
-	
-//	public int run() {
-//		int score = checkLevel();
-//		while (score != -1) {
-//			// check next successors
-//			getNewSuccessors();
-//			score = checkLevel();
-//		}
-//		return score;
-//
-//	}
-
-//	private void getNewSuccessors(){
-//		//iterate through the hash table
-//		//get the arraylists
-//		//generate successors for each of those array lists
-//		//combine those successor array lists
-//		//look through each of those and hash them
-//	}
-
-//	private int checkLevel() {
-//		int score = 0;
-//		
-//		ArrayList<String> wordsToRemove = new ArrayList<String>();
-//		for (String iWord: initialWords){
-//			if (someSuccessorMatchesDict(iWord)){
-//				wordsToRemove.add(iWord);
-//				System.out.println("Some word matches.");
-//			}
-//		}
-//		for (String rWord: wordsToRemove){
-//			initialWords.remove(rWord);
-//			sentenceTree.remove(rWord);
-//		}
-//		
-//		if (initialWords.isEmpty())
-//			score = 0;
-//		else
-//			score = -1;
-//		
-//		return score;
-//	}
-	
-//	private boolean someSuccessorMatchesDict(String word){
-//		boolean b = false;
-//		
-//		for (Node n: sentenceTree.get(word)){
-//			if (dictionary.contains(n.getWord())){
-//				initialWords.remove(word);
-//				b = true;
-//			}
-//		}
-//		
-//		return b;
-//	}
 	
 }
