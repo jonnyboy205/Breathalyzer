@@ -8,23 +8,25 @@ public class BFS {
 	
 	private int currentLevel;
 	private HashSet<String> dictionary;
-	private ArrayList<String> initialWords;
+//	private ArrayList<String> initialWords;
+	private ArrayList<Node> initialWords;
 	private HashMap<String, ArrayList<Node>> sentenceTree;
 
 	public BFS(String theDrunkSentence, HashSet<String> dictHash){
 		dictionary = dictHash;
 		
-		sentenceTree = new HashMap<String, ArrayList<Node>>();
-		initialWords = new ArrayList<String>();
+		initialWords = parseSentence(theDrunkSentence);
 		
-		ArrayList<Node> words = parseSentence(theDrunkSentence);
-			
-		String currentWord = "";
-		for (Node currentWordNode : words){
-			currentWord = currentWordNode.getWord();
-			initialWords.add(currentWord);
-			sentenceTree.put(currentWord, generateSuccessors(currentWordNode));
-		}
+//		ArrayList<Node> words = parseSentence(theDrunkSentence);
+//			
+//		sentenceTree = new HashMap<String, ArrayList<Node>>();		
+//		initialWords = new ArrayList<String>();
+//		String currentWord = "";
+//		for (Node currentWordNode : words){
+//			currentWord = currentWordNode.getWord();
+//			initialWords.add(currentWord);
+//			sentenceTree.put(currentWord, generateSuccessors(currentWordNode));
+//		}
 	}
 	
 	private ArrayList<Node> parseSentence(String sentence){
