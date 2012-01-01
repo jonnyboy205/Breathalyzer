@@ -9,7 +9,7 @@ public class Breathalyzer {
 	private HashSet<String> dictHash;
 	private String theWordListFilename;
 	private String theDrunkSentence;
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	
 	public Breathalyzer(String theWordListFilename, String theDrunkSentence) throws FileNotFoundException{
 		this.theWordListFilename = theWordListFilename;
@@ -32,19 +32,19 @@ public class Breathalyzer {
 	private void createDictHashSet(Scanner s) {
 		dictHash = new HashSet<String>();
 		while(s.hasNextLine()){
-			dictHash.add(s.nextLine().trim());
+			dictHash.add(s.nextLine().trim().toLowerCase());
 		}
 	}
 	
 	/**
 	 * Main run method. Calculates drunk score of sentence.
 	 */
-	public void run(){
+	public int run(){
 		//I'm thinking a breadth-first search to check all possible variations of words with 1 change, 2 changes, etc.
 		//TODO
 		
 		BFS myBFS = new BFS(theDrunkSentence, dictHash);
-//		myBFS.run();
+		return myBFS.run();
 		
 	}
 	

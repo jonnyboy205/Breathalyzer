@@ -6,11 +6,12 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class BFS {
 	
-	private int currentLevel;
+//	private int currentLevel;
 	private HashSet<String> dictionary;
 //	private ArrayList<String> initialWords;
 	private ArrayList<Node> initialWords;
-	private HashMap<String, ArrayList<Node>> sentenceTree;
+//	private HashMap<String, ArrayList<Node>> sentenceTree;
+	private static final boolean DEBUG = true;
 
 	public BFS(String theDrunkSentence, HashSet<String> dictHash){
 		dictionary = dictHash;
@@ -125,6 +126,49 @@ public class BFS {
 		}
 		
 		return successors;
+	}
+	
+	private ArrayList<Node> generateSuccessors(ArrayList<Node> previousSuccessors){
+		ArrayList<Node> ret = new ArrayList<Node>();
+		
+		for (Node n: previousSuccessors){
+			ret.addAll(generateSuccessors(n));
+		}
+		
+		return ret;
+	}
+
+	
+	/**
+	 * 
+	 * @param a, depth level in breadth-first search tree
+	 * @return score
+	 */
+	private int recursiveCalcScore(int a, ArrayList<Node> successors){
+		if (a==0)
+			return 0;
+		
+		for (Node n: successors){
+			if (dictionary.contains(n.getWord())){
+				if (DEBUG)
+					System.out.println(n.getWord());
+				
+				return a;
+			}
+		}
+		
+		return recursiveCalcScore(a++, generateSuccessors(successors));
+		
+	}
+
+	public int run(){
+		int score = 0;
+		
+		for (Node iWordNode: initialWords){
+			score += recursiveCalcScore(1, generateSuccessors(iWordNode));
+		}
+		
+		return score;
 	}
 	
 //	public int run() {
